@@ -527,6 +527,7 @@
                     }
                 } else {
                     //board is initialized, set cell as selected for keypress input
+                    document.getElementById("keyboard_catcher").value = "";
                     if (selected_pos != undefined) {
                         if(board[selected_pos[0]][selected_pos[1]].opt.length == 0)
                             board[selected_pos[0]][selected_pos[1]].opt = get_group_cells(board[selected_pos[0]][selected_pos[1]].g).map((v,i)=>{return i+1});
@@ -536,16 +537,37 @@
                     update_board();
                     e.target.classList.add("selected");
                     selected_pos = pos;
-                    e.target.focus();
+                    document.getElementById("keyboard_catcher").focus();
+                    document.getElementById("keyboard_catcher").click();
                     return;
                 }
             }
+
+            function keyboard_input() {
+                console.log(document.getElementById("keyboard_catcher").value);
+                //edit candidate for selected cell
+                if (selected_pos != undefined) {
+                        if(false){//(event.key == "Enter") {
+                            if(board[selected_pos[0]][selected_pos[1]].opt.length == 0)
+                                board[selected_pos[0]][selected_pos[1]].opt = get_group_cells(board[selected_pos[0]][selected_pos[1]].g).map((v,i)=>{return i+1});
+                            document.getElementById(`${selected_pos[0]},${selected_pos[1]}`).classList.remove("selected");
+                            selected_pos = undefined;
+                        } else if (Number(event.key) != NaN) {
+                            board[selected_pos[0]][selected_pos[1]].opt.push(Number(document.getElementById("keyboard_catcher").value));
+                        }
+                        update_board();
+                    }
+                document.getElementById("keyboard_catcher").value = "";
+
+            }
             
             function on_load() {
-                document.addEventListener('keypress', (event) => {
+                /* document.addEventListener('keypress', (event) => {
                     //edit candidate for selected cell
                     if (selected_pos != undefined) {
                         if(event.key == "Enter") {
+                            if(board[selected_pos[0]][selected_pos[1]].opt.length == 0)
+                                board[selected_pos[0]][selected_pos[1]].opt = get_group_cells(board[selected_pos[0]][selected_pos[1]].g).map((v,i)=>{return i+1});
                             document.getElementById(`${selected_pos[0]},${selected_pos[1]}`).classList.remove("selected");
                             selected_pos = undefined;
                         } else if (Number(event.key) != NaN) {
@@ -553,7 +575,7 @@
                         }
                         update_board();
                     }
-                }, false);             
+                }, false);   */           
 
                 document.getElementById('load_file').addEventListener('change', load_game, false);
 
@@ -675,6 +697,9 @@
                 </td>
             </tr>
         </table>
+        <div style="width:0; overflow:hidden;">
+            <input id="keyboard_catcher" type="text" onkeyup="keyboard_input()"/>
+        </div>
         <br>
         <p id="message"></p>
         <button id="btn_group" onclick="current_group++;">new group</button> <button id="btn_step" onclick="step()">solve step</button>
