@@ -697,14 +697,14 @@
                 </td>
             </tr>
         </table>
-        <div style="width:auto; overflow:hidden;">
-            <input id="keyboard_catcher" type="text" onkeyup="keyboard_input()"/>
-        </div>
         <br>
         <p id="message"></p>
         <button id="btn_group" onclick="current_group++;">new group</button> <button id="btn_step" onclick="step()">solve step</button>
         <div>
-            <table id="board" cellspacing="0" style="position: absolute;">
+            <div style="position: absolute; z-index: 1;">
+                <input id="keyboard_catcher" type="text" onkeyup="keyboard_input()" width="800" height="800"/>
+            </div>
+            <table id="board" cellspacing="0" style="position: absolute; z-index: 5;">
             </table>
             <svg id="svg" width="800" height="800" style="position: absolute; z-index: 9; pointer-events: none;">
                 <defs>
