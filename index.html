@@ -402,8 +402,6 @@
                 
                 let pause = false;
                 while(!pause) {
-                    //console.log(step_prog);
-
                     current_cell = board[pos_x][pos_y];
                     let group = get_group_cells(get_group_id(pos_x,pos_y));
                     
@@ -467,7 +465,6 @@
                         arrow.setAttributeNS(null, "class", "arrow");
                         arrow.setAttributeNS(null, "transform", `translate(${sc.pos[0]*63+45} ${sc.pos[1]*63+45}) rotate(${rot})`);
                         document.getElementById("svg").appendChild(arrow);
-                        
                     }
                 }
             }
@@ -562,32 +559,16 @@
             }
             
             function on_load() {
-                /* document.addEventListener('keypress', (event) => {
-                    //edit candidate for selected cell
-                    if (selected_pos != undefined) {
-                        if(event.key == "Enter") {
-                            if(board[selected_pos[0]][selected_pos[1]].opt.length == 0)
-                                board[selected_pos[0]][selected_pos[1]].opt = get_group_cells(board[selected_pos[0]][selected_pos[1]].g).map((v,i)=>{return i+1});
-                            document.getElementById(`${selected_pos[0]},${selected_pos[1]}`).classList.remove("selected");
-                            selected_pos = undefined;
-                        } else if (Number(event.key) != NaN) {
-                            board[selected_pos[0]][selected_pos[1]].opt.push(Number(event.key));
-                        }
-                        update_board();
-                    }
-                }, false);   */           
-
                 document.getElementById('load_file').addEventListener('change', load_game, false);
-
                 document.getElementById("btn_group").disabled = true;
                 document.getElementById("btn_step").disabled = true;
             }
 
             function create_board() {
                 document.getElementById("btn_init").disabled = true;
-                let sizex = document.getElementById("xsize").value; //6;
-                let sizey = document.getElementById("ysize").value; //5;
-                //board = [];
+                let sizex = document.getElementById("xsize").value;
+                let sizey = document.getElementById("ysize").value;
+                
                 for (let x = 0; x < sizex; x++) {
                     let col = [];
                     for (let y = 0; y < sizey; y++) {
