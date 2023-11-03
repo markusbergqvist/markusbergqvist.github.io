@@ -544,16 +544,16 @@
                 console.log(document.getElementById("keyboard_catcher").value);
                 //edit candidate for selected cell
                 if (selected_pos != undefined) {
-                        if(event.key == "Enter" || event.key == "Escape") {
-                            if(board[selected_pos[0]][selected_pos[1]].opt.length == 0)
-                                board[selected_pos[0]][selected_pos[1]].opt = get_group_cells(board[selected_pos[0]][selected_pos[1]].g).map((v,i)=>{return i+1});
-                            document.getElementById(`${selected_pos[0]},${selected_pos[1]}`).classList.remove("selected");
-                            selected_pos = undefined;
-                        } else if (Number(event.key) != NaN) {
-                            board[selected_pos[0]][selected_pos[1]].opt.push(Number(event.key));
-                        }
-                        update_board();
+                    if(event.key == "Enter" || event.key == "Escape") {
+                        if(board[selected_pos[0]][selected_pos[1]].opt.length == 0)
+                            board[selected_pos[0]][selected_pos[1]].opt = get_group_cells(board[selected_pos[0]][selected_pos[1]].g).map((v,i)=>{return i+1});
+                        document.getElementById(`${selected_pos[0]},${selected_pos[1]}`).classList.remove("selected");
+                        selected_pos = undefined;
+                    } else if (Number(document.getElementById("keyboard_catcher").value) != NaN) {
+                        board[selected_pos[0]][selected_pos[1]].opt.push(Number(document.getElementById("keyboard_catcher").value));
                     }
+                    update_board();
+                }
                 document.getElementById("keyboard_catcher").value = "";
 
             }
@@ -685,7 +685,7 @@
         <p><button id="btn_group" onclick="current_group++;">new group</button> <button id="btn_step" onclick="step()">solve step</button></p>
         <div>
             <div style="position: absolute; z-index: 1;">
-                <input id="keyboard_catcher" type="text" onkeypress="keyboard_input()" width="800" height="800" hidden="1"/>
+                <input id="keyboard_catcher" type="text" onkeyup="keyboard_input()" width="800" height="800" hidden="1"/>
             </div>
             <table id="board" cellspacing="0" style="position: absolute; z-index: 5;">
             </table>
